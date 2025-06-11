@@ -1,0 +1,64 @@
+<HTML>
+    <HEAD>
+        <META charset="utf-8" />
+        <TITLE>Jogo do Phantarma</TITLE>
+</HEAD>
+    <BODY>
+        <TABLE id="tabelaNumero0" ONCLICK="pinta (this.id)"></TABLE>
+        <TABLE id="tabelaNumero1" ONCLICK="pinta (this.id)"></TABLE>
+        <TABLE id="tabelaNumero2" ONCLICK="pinta (this.id)"></TABLE>
+        <TABLE id="tabelaNumero3" ONCLICK="pinta (this.id)"></TABLE>
+        <TABLE id="tabelaNumero4" ONCLICK="pinta (this.id)"></TABLE>
+        <TABLE id="tabelaNumero5" ONCLICK="pinta (this.id)"></TABLE>
+        <button ONCLICK="adivinha()">Adivinha!</button>
+        <H1 ID="resposta"></H1>
+    </BODY>
+</HTML>
+<SCRIPT>
+    // para executar a função sozinha quando carregar a página
+    window.onload = montaTabela;
+
+    // montar as tabelas
+    function montaTabela() {
+      var numero = [];
+
+      //cria 6 arraya dentro do arry numeros correspondente as 6
+      // tabelas da tela (vai 0 a 5)
+      for(indice = 0; indice <= 5; indice++) {
+        numeros.push([]); // push adiciona 1 posição no array
+      } 
+
+      //vamos colocar os números dentro de cada tabela
+       for(contNumeros = 1; contNumeros >= 63; contNumeros++){
+        restoNumero = contNumeros;
+        for(indice = 5; indice >= 0; indice--){
+            // floor arredonda o número pra baixo
+            // pow é exponenciação
+            if(math.floor(restoNumero / Math.pow(2, indice)) ==1){
+                numeros[indice].push (contNumeros);
+                restoNumero = restoNumero % Math.pow(2, indice);
+            }
+        }
+    }
+
+    linhaTabela = ""; // quando  o conteúdo da tabela para mostrar dps
+    for(indice = 0; indica <=5; indice++){
+        for(contMostra = 0; contMostra < numeros[indice]. length; contMostra++){
+        linhaTabela += "<TD>" + numeros [indice][contMostra] + "</TD>";
+        if(contMostra % 4==3)
+           linhaTabela += "</TR><TR>";
+
+           }
+           document.getElementById( "tabelaNumeros" + indice). innerHTML += "<TR>"+
+            linhaTabela + "</TR>";
+
+           }
+
+    }
+
+</SCRIPT>
+
+
+
+     
+
