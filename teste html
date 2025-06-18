@@ -1,0 +1,8 @@
+  
+    function tentar(){
+     var numeroSorteado = Math.ceil(Math.random()* 100);
+    var digt =  document.getElementById("numeroDig").value;
+
+    if(numeroSorteado == digt)
+    
+
