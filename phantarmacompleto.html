@@ -1,0 +1,82 @@
+<HTML>
+   <HEAD>
+      <META CHARSET="utf-8" />
+      <TITLE>Jogo do Phantarma</TITLE>
+      <style>
+         table{
+            display: inline-table;
+            margin: 10px;
+         }
+      </style>
+   </HEAD>
+   <BODY>
+      <TABLE ID="tabelaNumeros0" ONCLICK="pinta(this.id)"></TABLE>
+      <TABLE ID="tabelaNumeros1" ONCLICK="pinta(this.id)"></TABLE>
+      <TABLE ID="tabelaNumeros2" ONCLICK="pinta(this.id)"></TABLE>
+      <BR>
+      <TABLE ID="tabelaNumeros3" ONCLICK="pinta(this.id)"></TABLE>
+      <TABLE ID="tabelaNumeros4" ONCLICK="pinta(this.id)"></TABLE>
+      <TABLE ID="tabelaNumeros5" ONCLICK="pinta(this.id)"></TABLE>
+      <BUTTON ONCLICK="adivinha()">Adivinhar!</BUTTON>
+      <H1 ID="resposta"></H1>
+   </BODY>
+</HTML>
+<SCRIPT>
+   // para executar a função sozinha quando carregar a página
+   window.onload = montaTabela;
+   
+   // montar as tabelas
+   function montaTabela(){
+      var numeros = [];
+      
+      // cria 6 arrays dentro do array numeros correspondentes as 6
+      //   tabelas da tela (vai de 0 a 5)
+      for(indice = 0; indice <= 5; indice++){
+         numeros.push([]); // push adiciona 1 posição no array
+      }
+      
+      // vamos colocar os números dentro de cada tabela
+      for(contNumeros = 1; contNumeros <= 63; contNumeros++){
+         restoNumero = contNumeros;
+         for(indice = 5; indice >= 0; indice--){
+            //floor arredonda o numero pra baixo
+            //pow é exponenciação
+            if(Math.floor(restoNumero / Math.pow(2, indice)) == 1){
+               numeros[indice].push(contNumeros);
+               restoNumero = restoNumero % Math.pow(2, indice);
+            }
+         }
+      }
+      
+      linhaTabela = ""; // guardo o conteúdo da tabela para mostrar dps
+      for(indice = 0; indice <= 5; indice++){
+         for(contMostra = 0; contMostra < numeros[indice].length; contMostra++){
+            linhaTabela += "<TD>" + numeros[indice][contMostra] + "</TD>";
+            if(contMostra % 4 == 3)
+               linhaTabela += "</TR><TR>";
+         }
+         document.getElementById("tabelaNumeros" + indice).innerHTML += "<TR>"+
+            linhaTabela + "</TR>";
+         linhaTabela = "";
+      }
+   }
+   function pinta(id){
+      tabela = document.getElementById(id);
+      if(tabela.style.color == ""){
+         tabela.style.color = "#FF0000";
+      }else{
+         tabela.style.color = "";
+      }
+
+   }
+
+   function adivinha(){
+      var numeroEscolhido = 0;
+      for(indice = 0; indice <=5; indice++){
+         if(document.getElementById("tabelaNumeros" + indice).style.color != ""){
+            numeroEscolhido += Math.pow(2, indice);
+         }
+      }
+      document.getElementById("resposta").innerHTML = "O número é: " + numeroEscolhido;
+   }
+</SCRIPT>
