@@ -1,0 +1,75 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Adivinhe um número!</title>
+</head>
+<body>
+  <p><strong><H1> Adivinhe um número!</H1></strong></p>
+  <p>
+    <BR>Selecionamos um número aleatório entre 1 e 100.<BR> <br />
+        
+    Veja se consegue adivinhar em 10 chances ou menos. <br />
+    Diremos se seu palpite está alto ou baixo.
+  </p>
+
+  <input type="text" id="numeroDig" />
+  <button id="botao" onclick="tentar();">Palpitar!</button>
+
+  <p id="palpitesAnteriores"></p>
+  <p id="ultimoResultado"></p>
+  <p id="altoBaixo"></p>
+
+  <script>
+    // Número sorteado entre 1 e 100
+    var numeroSorteado = Math.ceil(Math.random() * 100);
+
+    // Contador de tentativas
+    var tentativas = 0;
+
+    // Lista para guardar os palpites anteriores
+    var palpites = [];
+
+    function tentar() {
+      var entrada = document.getElementById("numeroDig");
+      var palpite = Number(entrada.value);
+      tentativas++;
+
+      // Adiciona o palpite à lista
+      palpites.push(palpite);
+
+      // Atualiza os palpites anteriores
+      document.getElementById("palpitesAnteriores").textContent =
+        " " + palpites.join(", ");
+
+      // Verifica se acertou
+      if (palpite === numeroSorteado) {
+        document.getElementById("ultimoResultado").textContent = "Parabéns! Você acertou!";
+        document.getElementById("altoBaixo").textContent = "";
+        encerrarJogo();
+      } else if (tentativas >= 10) {
+        document.getElementById("ultimoResultado").textContent = "FIM DE JOGO! O número era " + numeroSorteado;
+        document.getElementById("altoBaixo").textContent = "";
+        encerrarJogo();
+      } else {
+        document.getElementById("ultimoResultado").textContent = "Errado!";
+        if (palpite < numeroSorteado) {
+          document.getElementById("altoBaixo").textContent = "Seu palpite foi muito baixo.";
+        } else {
+          document.getElementById("altoBaixo").textContent = "Seu palpite foi muito alto.";
+          
+        }
+      }
+
+      // Limpa o campo e foca novamente
+      entrada.value = "";
+      entrada.focus();
+    }
+
+    function encerrarJogo() {
+      document.getElementById("numeroDig").disabled = true;
+      document.getElementById("botao").disabled = true;
+    }
+  </script>
+</body>
+</html>
+
